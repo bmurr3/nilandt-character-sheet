@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap');
+
+.charactersheet.charsheet {
+    font-family: "Spline Sans Mono", monospace;
+    font-optical-sizing: auto;
+}
