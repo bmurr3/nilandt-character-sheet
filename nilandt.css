@@ -5,6 +5,139 @@
   font-optical-sizing: auto;
 }
 
+h2 {
+    font-weight: 900;
+    font-family: "Spline Sans Mono", monospace;
+    font-size: 36px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+h3 {
+    text-transform: uppercase;
+    text-decoration: underline;
+    margin-bottom: 8px;
+}
+
+.charactersheet input, .charactersheet textarea, .charactersheet select {
+    width: 100%;
+    max-width: 100%;
+}
+
+.charsheet.charactersheet input {
+    font-weight: bold;
+}
+
+.charactersheet.charsheet img:not([src]) {
+    display: none;
+}
+
+.charsheet .sheet-details,
+.charsheet .sheet-mentality,
+.charsheet .sheet-actions,
+.charsheet .sheet-inventory {
+    display: none;
+}
+
+.charsheet .sheet-tabstoggle[value="details"] ~ .sheet-details,
+.charsheet .sheet-tabstoggle[value="mentality"] ~ .sheet-mentality,
+.charsheet .sheet-tabstoggle[value="actions"] ~ .sheet-actions,
+.charsheet .sheet-tabstoggle[value="inventory"] ~ .sheet-inventory {
+    display: flex;
+}
+
+.sheet-tabs-wrapper {
+    display: flex;
+}
+
+.sheet-tabs-wrapper button {
+    font-size: 20px;
+    -webkit-text-stroke-width: 2px;
+    font-weight: normal;
+    line-height: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0px;
+    font-family: "Spline Sans Mono", monospace;
+    padding: 8px 12px;
+    border: 0px solid;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.sheet-tabs-wrapper button:nth-child(1) {
+    background-color: rgb(245, 245, 245);
+    color: #444;
+}
+
+input[value="details"] ~ div.sheet-tabs-wrapper > button:nth-child(1) {
+    background-color: #F38E4B;
+    color: #000;
+}
+
+.sheet-tabs-wrapper button:nth-child(2) {
+    background-color: rgb(245, 245, 245);
+    color: #444;
+}
+
+input[value="mentality"] ~ div.sheet-tabs-wrapper > button:nth-child(2) {
+    background-color: #73978E;
+    color: #000;
+}
+
+.sheet-tabs-wrapper button:nth-child(3) {
+    background-color: rgb(245, 245, 245);
+    color: #444;
+}
+
+input[value="actions"] ~ div.sheet-tabs-wrapper > button:nth-child(3) {
+    background-color: #73878B;
+    color: #000;
+}
+
+.sheet-tabs-wrapper button:nth-child(4) {
+    background-color: rgb(245, 245, 245);
+    color: #444;
+}
+
+input[value="inventory"] ~ div.sheet-tabs-wrapper > button:nth-child(4) {
+    background-color: #F29288;
+    color: #000;
+}
+
+input[value="details"] ~ div.sheet-stats {
+    background-color: #F38E4B;
+}
+
+.sheet-stats {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 8px 4px 8px;
+    z-index: 10;
+    position: relative;
+}
+
+.sheet-player-name {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    max-width: 32.5%;
+    display: inline-flex;
+    padding: 8px 14px;
+    background-color: black;
+    color: white;
+}
+
+.sheet-player-name label {
+    color: white;
+}
+
+.sheet-player-name label {
+    margin-bottom: 0px;
+    position: relative;
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+
 /* h2 {    
     font-weight: 900;
     font-family: "Spline Sans Mono", monospace;

@@ -1,5 +1,130 @@
+<input type="hidden" class="sheet-tabstoggle" name="attr_sheetTab" value="Details" />
+<input type="hidden" name="attr_player_name" value="" />
 
+<div class="sheet-tabs-wrapper">
+    <button type="action" name="act_details">Details</button>
+    <button type="action" name="act_mentality">Mentality</button>
+    <button type="action" name="act_actions">Actions</button>
+    <button type="action" name="act_inventory">Inventory</button>
+</div>
+<div class="sheet-details sheet-stats">
+    <div class="sheet-player-name">
+        <label data-label-tooltip="The player's name." for="player_name">Player Name</label>
+        <input type="text" name="attr_player_name" id="player_name" />
+    </div>
+</div>
+<div class="sheet-mentality">
+    <div class="enneagram-section">
+      <label for="enneagram_type">Enneagram Type:</label>
+      <select name="attr_enneagram_type" id="enneagram_type">
+        <option value="1">1 - The Reformer</option>
+        <option value="2">2 - The Helper</option>
+        <option value="3">3 - The Achiever</option>
+        <option value="4">4 - The Individualist</option>
+        <option value="5">5 - The Investigator</option>
+        <option value="6">6 - The Loyalist</option>
+        <option value="7">7 - The Enthusiast</option>
+        <option value="8">8 - The Challenger</option>
+        <option value="9">9 - The Peacemaker</option>
+      </select>
+  
+      <label for="caster_type">Caster Type:</label>
+      <input type="text" name="attr_caster_type" id="caster_type" readonly />
+  
+      <button type="action" name="act_roll_caster">Roll for Caster</button>
+    </div>
+  
+    <div class="caster-details">
+      </div>
+  </div>
+<div class="sheet-actions">
 
+</div>
+<div class="sheet-inventory">
+
+</div>
+
+<script type="text/worker">
+    const tablist = ["details", "mentality", "actions", "inventory"];
+    tablist.forEach(button => {
+        on(`clicked:${button}`, function() {
+            setAttrs({
+                sheetTab: button
+            })
+        });
+    });
+
+    function getCasterType(type) {
+        switch (type) {
+            case 1: return "Reader";
+            case 2: return "Healer";
+            case 3: return "Charismat";
+            case 4: return "Illusionist";
+            case 5: return "Examiner";
+            case 6: return "Bonder";
+            case 7: return "Portalist";
+            case 8: return "Buffer";
+            case 9: return "Shifter";
+            default: return "None";
+        }
+    }   
+      
+    function displayCasterDetails(type) {
+    // Add code here to display the appropriate details for each Caster type
+    // For example, for Readers:
+    if (type === 1) {
+        $(".caster-details").html("<label for='sin_score'>Sin Score:</label><input type='number' name='attr_sin_score' id='sin_score' value='0' />");
+    }
+    // Add similar code for other Caster types
+    }
+      
+    function clearCasterDetails() {
+    $(".caster-details").empty();
+    }
+
+    function rollDice(sides) {
+        return Math.floor(Math.random() * sides) + 1;
+    }
+    
+    on("clicked:roll_caster", function() {
+        getAttrs(["enneagram_type", "kin"], function(values) {
+          let type = rollDice(12);
+      
+          if (type > 9) {
+            switch(values.kin) {
+              case "Wolves":
+                type = rollDice(3) + 1; // 2, 3, or 4
+                break;
+              case "Foxes":
+                type = rollDice(3) + 4; // 5, 6, or 7
+                break;
+              case "Cats":
+                type = rollDice(3) * 3 + 1; // 1, 8, or 9
+                break;
+              default:
+                type = rollDice(9) + 1; // 1-9
+            }
+          }
+      
+          const roll = rollDice(10);
+      
+          if (roll === type) {
+            setAttrs({
+              caster_type: getCasterType(type),
+              enneagram_type: type
+            });
+            // Display caster-specific details
+            displayCasterDetails(type);
+          } else {
+            setAttrs({
+              caster_type: "None"
+            });
+            // Clear caster-specific details
+            clearCasterDetails();
+          }
+        });
+      });
+</script>
 <!-- <input type="hidden" class="sheet-tabstoggle" name="attr_sheetTab" value="pilot" />
 <input type="hidden" name="attr_class" value="salvager" />
 <input type="hidden" name="attr_hp" value="10" />
